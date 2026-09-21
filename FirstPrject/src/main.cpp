@@ -1,18 +1,27 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
-
 void setup() {
   // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  //inizializza il monitor seriale
+  Serial.begin(115200);
+  /*int count = 10;
+  for (int i = 0; i < count; i++)
+  {
+    Serial.println("Hello, world!");
+    delay(1000);
+  }
+    */
+   /*
+   while (true)
+   {
+    Serial.println("Hello, world!");
+    delay(1000);
+   }
+  */
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  Serial.println("HelloWorld");
+  delay(1000);
 }
