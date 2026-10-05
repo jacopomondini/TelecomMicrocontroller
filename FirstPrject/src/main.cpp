@@ -1,34 +1,33 @@
 #include <Arduino.h>
+#define LEDROSSO 2
+#define LEDGIALLO 4
+#define LEDVERDE 15
 
 void setup() {
-  // put your setup code here, to run once:
   //inizializza il monitor seriale
   Serial.begin(115200);
   // Inizializza il LED integrato e lo imposta sempre acceso
-  int LED_BUILTIN = 2;
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH);
-  /*int count = 10;
-  for (int i = 0; i < count; i++)
-  {
-    Serial.println("Hello, world!");
-    delay(1000);
-  }
-    */
-   /*
-   while (true)
-   {
-    Serial.println("Hello, world!");
-    delay(1000);
-   }
-  */
-  
+  pinMode(LEDROSSO, OUTPUT);
+  pinMode(LEDGIALLO, OUTPUT);
+  pinMode(LEDVERDE, OUTPUT);
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  Serial.println("HelloWorld");
-  delay(1000);
+
+  //Serial.println("HelloWorld");
+  digitalWrite(LEDROSSO, HIGH);
+  delay(500);
+  digitalWrite(LEDROSSO, LOW);
+  digitalWrite(LEDGIALLO, HIGH);
+  delay(500);
+  digitalWrite(LEDGIALLO, LOW);
+  digitalWrite(LEDVERDE, HIGH);
+  delay(500);
+  digitalWrite(LEDVERDE, LOW);
+  delay(500);
+
   // led integrato lasciato sempre acceso in setup
 
 }
+
