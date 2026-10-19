@@ -1,82 +1,51 @@
 #include <Arduino.h>
+#include <Random>
 
-int led[4] = {16, 17, 18, 19};
-int numero[4] = {0, 0, 0, 0};
-int attuale = 1;
+#define pulsante 4
+int LED[] = {0, 2, 15, 16};
+int numero;
+String numerobin;
 
 void setup()
 {
-  // inizializza il monitor seriale
   Serial.begin(115200);
-  // Inizializza il LED integrato e lo imposta sempre acceso
+  pinMode(pulsante, INPUT_PULLDOWN);
   for (int i = 0; i < 4; i++)
   {
-    pinMode(led[i], OUTPUT);
-  }
-}
-
-void converti()
-{
-  for (int i = 0; i < 4; i++)
-  {
-    numero[i] = 0;
-  }
-
-  int temp = attuale;
-  int bit = 3;
-
-  while (temp > 0 && bit >= 0)
-  {
-    numero[bit] = temp % 2;
-    temp = temp / 2;
-    bit--;
+    pinMode(LED[i], OUTPUT);
   }
 }
 
 void loop()
 {
-  while (true)
+  
+  if (digitalRead(pulsante) == HIGH)
   {
-    // incrementa attuale
-    attuale = attuale + 1;
-    if (attuale == 17)
+    numero = random(0, 15);
+    numerobin = String(numero, BIN);
+    Serial.println("Numero estratto:");
+    Serial.println(numero);
+    Serial.println("in binario:");
+    Serial.println(numerobin);
+    for (int i = 0; i < numerobin.length(); i++)
     {
-      attuale = 1;
-    }
-
-    converti();
-
-    // accensione e spegnimento dei led con gli if
-    for (int i = 0; i < 4; i++)
-    {
-      if (numero[i] == 1)
+      if (numerobin[i] == '1')
       {
-        digitalWrite(led[i], HIGH);
+        digitalWrite(LED[i], HIGH);
+      } else {
+        digitalWrite(LED[i], LOW);
       }
-      else
-      {
-        digitalWrite(led[i], LOW);
-      }
+      
     }
     delay(1000);
   }
-
-  /* script di conta binaria
-  for (int i = 0; i < 15; i++)
+  else
   {
-    for (int j = 0; j < 3; i--)
+    for (int i = 0; i < 4; i++)
     {
-      if (numero[i] == 0)
-      {
-        numero[i] = 1;
-        break;
-      }
-      else
-      {
-        numero[i] = 0;
-      }
-
-
+      digitalWrite(LED[i], LOW);
     }
-  }*/
+    
+  };
+  //delay(100);
 }
